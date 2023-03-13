@@ -1,0 +1,23 @@
+Replace
+
+used when data is dynamic and there is no consistent way to check it
+used when data is too small to use incremental
+
+
+Incremental Load
+
+If the data is huge but the actual change is only less (delta record)
+The issue is that if there is any change in historical data then it will be an issue. So advisable when there is no change in the historical data under any circumstances
+Need to check the last entry key id to increment
+
+
+Append
+
+When the trend is to be plotted then Append should be used as most of the size of the data is less
+When the columns are the same for more than 1 dataset and need to be merged
+
+
+
+
+
+

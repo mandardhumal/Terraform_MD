@@ -1,0 +1,4 @@
+Snowflake CMD
+
+-- Login
+snowsql -a fub14477.us-east-1 -u mandardhumal

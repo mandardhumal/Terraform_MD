@@ -1,0 +1,39 @@
+
+Links
+
+https://www.snowflake.com/blog/best-practices-for-data-ingestion/
+
+https://www.snowflake.com/blog/best-practices-for-data-ingestion-part-2/
+
+https://www.snowflake.com/blog/10-best-practices-every-snowflake-admin-can-do-to-optimize-resources/
+
+https://www.analytics.today/blog/top-14-snowflake-data-engineering-best-practices
+
+https://www.linkedin.com/pulse/snowflake-best-practices-harmanpreet-singh/ -- I found this one very simple to understand
+
+https://hevodata.com/blog/snowflake-etl/
+
+https://www.bigcompass.com/blog/5-more-snowflake-best-practices
+
+https://www.sigmoid.com/ebooks-whitepapers/snowflake-implementation/
+
+https://www.phdata.io/blog/getting-started-with-snowflake/
+
+
+Pointers
+
+1. Use virtual warehouses effectively - Create virtual warehouses of appropriate size based on the workload. Monitor the usage of virtual warehouses and adjust their size as necessary to avoid overspending. Creating virtual warehouses of the appropriate size based on workload helps to ensure that queries run efficiently while avoiding overspending.
+2. Use Snowflake's automatic optimization - Run queries without hints and let Snowflake choose the most efficient execution plan. For example, instead of using a join hint, write a query without the hint and let Snowflake choose the best join algorithm. Allowing Snowflake to choose the most efficient execution plan based on query complexity and data distribution can help to minimize query execution time and optimize performance.
+3. Use role-based access control - Define roles and grant access to users based on the role they belong to. For example, create a role named "Finance" and grant it access to financial data only. Defining roles and granting access based on role membership can help to ensure that users have appropriate access to data while maintaining security.
+4. Use clustering keys - Choose the right clustering keys to improve query performance. For example, if a table is frequently queried by date, cluster it by date. Choosing the right clustering keys based on frequently queried columns can improve query performance by reducing the amount of data that needs to be scanned.
+5. Use data sharing - Share data securely across accounts to avoid the need for copying data. For example, share sales data with a partner account for joint analysis. Sharing data securely across accounts can help to improve efficiency by reducing the need for data duplication and facilitating collaboration.
+6. Use the right data types - Use the appropriate data type to save storage space and improve query performance. For example, use BOOLEAN data type instead of VARCHAR(5) for a column that has only two possible values. Using appropriate data types helps to save storage space and improve query performance by reducing the amount of data that needs to be scanned and processed.
+7. Avoid using DISTINCT - Use GROUP BY instead of DISTINCT to reduce data movement. For example, instead of using "SELECT DISTINCT country FROM sales", use "SELECT country FROM sales GROUP BY country". Using GROUP BY instead of DISTINCT can help to reduce data movement and optimize query performance.
+8. Use file formats wisely - Choose the right file format to balance query performance with storage efficiency. For example, use Parquet for large, static data and CSV for small, frequently changing data. Choosing the right file format can help to balance query performance with storage efficiency, enabling the most effective use of resources.
+9. Use views - Create views to simplify complex queries and abstract away details from end-users. For example, create a view that joins multiple tables and calculates aggregated values. Creating views can help to simplify complex queries and abstract away details from end-users, making it easier to use Snowflake effectively.
+10. Use Snowflake's Time Travel - Use Time Travel to recover lost data, compare versions of data, and avoid the need for backups. For example, use "SELECT * FROM sales_at_time(TIMESTAMP '2022-01-01 00:00:00')" to retrieve sales data as it was on January 1st, 2022. Using Time Travel can help to recover lost data, compare versions of data, and avoid the need for backups, providing a safety net for data management.
+11. Avoid using large, wide tables - Use clustering keys and table partitioning to break up large tables into smaller, more manageable pieces. For example, partition a sales table by date to improve query performance and reduce storage costs. 
+12. Use Snowflake's concurrency scaling - Use concurrency scaling to dynamically add compute resources to handle unexpected spikes in usage. For example, configure concurrency scaling to add 5 additional clusters when the number of queries exceeds a certain threshold.
+13. Monitor query performance - Use Snowflake's query history and profiling tools to monitor query performance and identify slow-running queries. For example, use "SHOW QUERY HISTORY" to retrieve information about past queries and their run time. Monitoring query performance can help to identify slow-running queries and optimize query execution, ensuring that Snowflake continues to operate at peak efficiency.
+14. Optimize ETL processes - Use Snowflake's COPY and INSERT statements to load data efficiently and avoid unnecessary transformations. For example, use the COPY command to load data from Amazon S3 to Snowflake instead of reading the data into a Python script and writing INSERT statements. Optimizing ETL processes can help to reduce the amount of time and resources required to load data into Snowflake, enabling faster, more efficient use of data.
+15. Use Snowflake's Snowpipe - Use Snowpipe to stream data into Snowflake in near real-time, eliminating the need for batch processing. For example, configure Snowpipe to load new data as it arrives in a specific S3 bucket. Using Snowpipe can help to stream data into Snowflake in near real-time, facilitating faster access to data and eliminating the need for batch processing.

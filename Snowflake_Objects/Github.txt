@@ -1,0 +1,9 @@
+What Github,
+Create Branch, Merge it
+Github action work, Pull Request, Roll-back PR, Raise PR, (schema change tool) Cont Integration and Cont T
+Upload file
+create table,
+
+
+
+put file:///C:/Users/Diacto/Downloads/archive/advertising.csv @new_stage;

@@ -1,0 +1,221 @@
+Microsoft Windows [Version 10.0.22621.1265]
+(c) Microsoft Corporation. All rights reserved.
+
+
+C:\Users\Diacto>snowsql -a fub14477.us-east-1 -u mandardhumal
+
+We were unable to create or write to the ../snowsql_rt.log_bootstrap. Make sure you have permission to write to the log file's parent folder or to modify the location of the log file specified in the SnowSQL log_file configuration option. See docs: https://docs.snowflake.com/en/user-guide/snowsql-config.html#log-file
+Observed error: [Errno 13] Permission denied: 'C:\\Users\\snowsql_rt.log_bootstrap'
+We were unable to create or write to the ../snowsql_rt.log. Make sure you have permission to write to the log file's parent folder or to modify the location of the log file specified in the SnowSQL log_file configuration option. See docs: https://docs.snowflake.com/en/user-guide/snowsql-config.html#log-file
+Observed error: [Errno 13] Permission denied: 'C:\\Users\\snowsql_rt.log'
+Password:
+* SnowSQL * v1.2.24
+Type SQL statements or !help
+
+mandardhumal#COMPUTE_WH@(no database).(no schema)>create database if not exists mydatabase;
++-------------------------------------------+
+| status                                    |
+|-------------------------------------------|
+| Database MYDATABASE successfully created. |
++-------------------------------------------+
+1 Row(s) produced. Time Elapsed: 0.363s
+mandardhumal#COMPUTE_WH@MYDATABASE.PUBLIC>create schema myschema;
++---------------------------------------+
+| status                                |
+|---------------------------------------|
+| Schema MYSCHEMA successfully created. |
++---------------------------------------+
+1 Row(s) produced. Time Elapsed: 0.283s
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>use mydatabase;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.251s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.PUBLIC>select CURRENT_SCHEMA();
+
++------------------+
+| CURRENT_SCHEMA() |
+|------------------|
+| PUBLIC           |
++------------------+
+1 Row(s) produced. Time Elapsed: 0.251s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.PUBLIC>select CURRENT_DATABASE(), CURRENT_SCHEMA(), current_role();
++--------------------+------------------+----------------+
+| CURRENT_DATABASE() | CURRENT_SCHEMA() | CURRENT_ROLE() |
+|--------------------+------------------+----------------|
+| MYDATABASE         | PUBLIC           | ACCOUNTADMIN   |
++--------------------+------------------+----------------+
+1 Row(s) produced. Time Elapsed: 1.238s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.PUBLIC>use schema myschema;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.286s
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>use role sysadmin;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.253s
+
+mandardhumal#COMPUTE_WH@(no database).(no schema)>use role accountadmin;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.267s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>use mydatabase;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.266s
+mandardhumal#COMPUTE_WH@MYDATABASE.PUBLIC>use schema myschema;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 0.236s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>select CURRENT_DATABASE(), CURRENT_SCHEMA(), current_role();
++--------------------+------------------+----------------+
+| CURRENT_DATABASE() | CURRENT_SCHEMA() | CURRENT_ROLE() |
+|--------------------+------------------+----------------|
+| MYDATABASE         | MYSCHEMA         | ACCOUNTADMIN   |
++--------------------+------------------+----------------+
+1 Row(s) produced. Time Elapsed: 0.252s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>create stage mystage;
++------------------------------------------+
+| status                                   |
+|------------------------------------------|
+| Stage area MYSTAGE successfully created. |
++------------------------------------------+
+1 Row(s) produced. Time Elapsed: 0.551s
+
+
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>create table if not exists exp_table (sr_no int AUTOINCREMENT PRIMARY key, year int, mon
+                                            th int, full_name varchar(255), amount int);
++---------------------------------------+
+| status                                |
+|---------------------------------------|
+| Table EXP_TABLE successfully created. |
++---------------------------------------+
+1 Row(s) produced. Time Elapsed: 0.415s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>desc exp_table;
++-----------+--------------+--------+-------+------------------------------+-------------+------------+-------+------------+---------+-------------+
+| name      | type         | kind   | null? | default                      | primary key | unique key | check | expression | comment | policy name |
+|-----------+--------------+--------+-------+------------------------------+-------------+------------+-------+------------+---------+-------------|
+| SR_NO     | NUMBER(38,0) | COLUMN | N     | IDENTITY START 1 INCREMENT 1 | Y           | N          | NULL  | NULL       | NULL    | NULL        |
+| YEAR      | NUMBER(38,0) | COLUMN | Y     | NULL                         | N           | N          | NULL  | NULL       | NULL    | NULL        |
+| MONTH     | NUMBER(38,0) | COLUMN | Y     | NULL                         | N           | N          | NULL  | NULL       | NULL    | NULL        |
+| FULL_NAME | VARCHAR(255) | COLUMN | Y     | NULL                         | N           | N          | NULL  | NULL       | NULL    | NULL        |
+| AMOUNT    | NUMBER(38,0) | COLUMN | Y     | NULL                         | N           | N          | NULL  | NULL       | NULL    | NULL        |
++-----------+--------------+--------+-------+------------------------------+-------------+------------+-------+------------+---------+-------------+
+5 Row(s) produced. Time Elapsed: 0.341s
+
+
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>put file://downloads/book1.csv @mystage;
++-----------+--------------+-------------+-------------+--------------------+--------------------+----------+---------+
+| source    | target       | source_size | target_size | source_compression | target_compression | status   | message |
+|-----------+--------------+-------------+-------------+--------------------+--------------------+----------+---------|
+| book1.csv | book1.csv.gz |         389 |         240 | NONE               | GZIP               | UPLOADED |         |
++-----------+--------------+-------------+-------------+--------------------+--------------------+----------+---------+
+1 Row(s) produced. Time Elapsed: 2.801s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>create or replace file format myformat type = 'CSV' field_delimiter = ',';
++--------------------------------------------+
+| status                                     |
+|--------------------------------------------|
+| File format MYFORMAT successfully created. |
++--------------------------------------------+
+1 Row(s) produced. Time Elapsed: 0.475s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>select f.$1,f.$2,f.$3,f.$4 from @mystage (file_format => 'myformat') f;
++------+-------+----------------+--------+
+| $1   | $2    | $3             | $4     |
+|------+-------+----------------+--------|
+| Year | Month | Full_name      | Amount |
+| 2022 | 1     | Adam Sandler   | 2345   |
+| 2022 | 2     | Mohan Bhargav  | 2341   |
+| 2022 | 3     | Vishal Singh   | 2455   |
+| 2022 | 4     | Adam Sandler   | 2765   |
+| 2022 | 5     | Mohan Bhargav  | 3564   |
+| 2022 | 6     | Chandni Kapoor | 2667   |
+| 2022 | 7     | Mitali Khanna  | 1998   |
+| 2022 | 8     | Adam Sandler   | 2374   |
+| 2022 | 9     | Vishal Singh   | 3564   |
+| 2022 | 10    | Chandni Kapoor | 1745   |
+| 2022 | 11    | Keshav Apte    | 7833   |
+| 2022 | 12    | Mitali Khanna  | 2644   |
+| 2023 | 1     | Keshav Apte    | 8625   |
+| 2023 | 2     | Priteesh Dubey | 1267   |
++------+-------+----------------+--------+
+15 Row(s) produced. Time Elapsed: 1.760s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>ALTER table EXP_TABLE drop column sr_no;
++----------------------------------+
+| status                           |
+|----------------------------------|
+| Statement executed successfully. |
++----------------------------------+
+1 Row(s) produced. Time Elapsed: 1.935s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>copy into EXP_TABLE from @mystage on_error = 'continue';
++----------------------+------------------+-------------+-------------+-------------+-------------+----------------------------------------+------------------+-----------------------+-------------------------+
+| file                 | status           | rows_parsed | rows_loaded | error_limit | errors_seen | first_error                            | first_error_line | first_error_character | first_error_column_name |
+|----------------------+------------------+-------------+-------------+-------------+-------------+----------------------------------------+------------------+-----------------------+-------------------------|
+| mystage/book1.csv.gz | PARTIALLY_LOADED |          15 |          14 |          15 |           1 | Numeric value 'Year' is not recognized |                1 |                     1 | "EXP_TABLE"["YEAR":1]   |
++----------------------+------------------+-------------+-------------+-------------+-------------+----------------------------------------+------------------+-----------------------+-------------------------+
+1 Row(s) produced. Time Elapsed: 0.849s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA>select * from EXP_TABLE;
++------+-------+----------------+--------+
+| YEAR | MONTH | FULL_NAME      | AMOUNT |
+|------+-------+----------------+--------|
+| 2022 |     1 | Adam Sandler   |   2345 |
+| 2022 |     2 | Mohan Bhargav  |   2341 |
+| 2022 |     3 | Vishal Singh   |   2455 |
+| 2022 |     4 | Adam Sandler   |   2765 |
+| 2022 |     5 | Mohan Bhargav  |   3564 |
+| 2022 |     6 | Chandni Kapoor |   2667 |
+| 2022 |     7 | Mitali Khanna  |   1998 |
+| 2022 |     8 | Adam Sandler   |   2374 |
+| 2022 |     9 | Vishal Singh   |   3564 |
+| 2022 |    10 | Chandni Kapoor |   1745 |
+| 2022 |    11 | Keshav Apte    |   7833 |
+| 2022 |    12 | Mitali Khanna  |   2644 |
+| 2023 |     1 | Keshav Apte    |   8625 |
+| 2023 |     2 | Priteesh Dubey |   1267 |
++------+-------+----------------+--------+
+14 Row(s) produced. Time Elapsed: 0.919s
+
+mandardhumal#COMPUTE_WH@MYDATABASE.MYSCHEMA> select full_name , sum(amount) from EXP_TABLE group by full_name order by sum(amount) d
+                                            esc;
++----------------+-------------+
+| FULL_NAME      | SUM(AMOUNT) |
+|----------------+-------------|
+| Keshav Apte    |       16458 |
+| Adam Sandler   |        7484 |
+| Vishal Singh   |        6019 |
+| Mohan Bhargav  |        5905 |
+| Mitali Khanna  |        4642 |
+| Chandni Kapoor |        4412 |
+| Priteesh Dubey |        1267 |
++----------------+-------------+
+7 Row(s) produced. Time Elapsed: 1.545s
